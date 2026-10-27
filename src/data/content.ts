@@ -17,7 +17,7 @@ export const profile = {
 export const problemsSolved = '2,000+';
 
 export const marquee = [
-  'Backend engineer',
+  'Software developer',
   'Competitive programmer',
   'Codeforces Expert',
   'ICPC Regionalist',
@@ -286,7 +286,7 @@ export const gallery: { cap: string; width: string; tilt: string; image?: string
 
 export const about = {
   headline: 'Hi, I’m Shane.',
-  headlineAccent: 'Backend developer and competitive programmer.',
+  headlineAccent: 'Software developer and competitive programmer.',
   body: [
     'I’m a third-year B.Tech ICT student at Dhirubhai Ambani University (formerly DA-IICT) in Gandhinagar. Most of what I build is backend work: APIs, databases, and getting them deployed and running properly.',
     'I got into programming through competitive programming. A few seniors introduced me to it, and I started practising on Codeforces and taking part in contests. Most of what I know came from Codeforces blogs, YouTube channels like Errichto, Colin Galen, Vivek Gupta, Gaurav Sen and TLE Eliminators, and problem sets like CSES and the USACO Guide.',
