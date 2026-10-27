@@ -30,9 +30,11 @@ export function About() {
           <h2 data-reveal="" className="about__headline">
             {about.headline} <span>{about.headlineAccent}</span>
           </h2>
-          <p data-reveal="" className="about__body">
-            {about.body}
-          </p>
+          <div data-reveal="" className="about__body">
+            {about.body.map((para) => (
+              <p key={para}>{para}</p>
+            ))}
+          </div>
           <div data-reveal="" className="about__stats">
             {about.stats.map((s) => (
               <div key={s.l} className="about__stat">

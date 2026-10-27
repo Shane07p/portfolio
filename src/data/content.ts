@@ -249,7 +249,11 @@ export const gallery: { cap: string; width: string; tilt: string; image?: string
 export const about = {
   headline: 'Graphs and trees came first.',
   headlineAccent: 'Then the systems that serve them.',
-  body: 'I’m a B.Tech ICT student at Dhirubhai Ambani University (formerly DA-IICT), Gandhinagar. Competitive programming got me into engineering; now I design normalized schemas, profile queries and load-test APIs with k6 until the numbers hold.',
+  body: [
+    'I’m a B.Tech ICT student at Dhirubhai Ambani University (formerly DA-IICT), Gandhinagar. Seniors there introduced me to competitive programming, and Codeforces became my practice ground: solving problems, entering contests and reading the community’s blogs.',
+    'I learned topics from Errichto, Colin Galen, Vivek Gupta, Gaurav Sen and TLE Eliminators, and drilled them on CSES and the USACO Guide. The biggest lesson: the people around you matter as much as the problems. That’s why I joined the Programming Club and helped found the Quant Club.',
+    'The same habit of measuring everything carries into my engineering. I design normalized schemas, profile queries and load-test APIs with k6 until the numbers hold.',
+  ],
   stats: [
     { v: '9.16', l: 'CGPA' },
     { v: '1.5K+', l: 'problems solved' },

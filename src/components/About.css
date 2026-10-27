@@ -99,12 +99,19 @@
 }
 
 .about__body {
-  margin: 0;
   max-width: 560px;
   font-size: 18px;
   line-height: 1.65;
   color: var(--mute);
   text-wrap: pretty;
+}
+
+.about__body p {
+  margin: 0;
+}
+
+.about__body p + p {
+  margin-top: 14px;
 }
 
 .about__stats {
