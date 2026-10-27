@@ -244,15 +244,22 @@ export const experience = [
   },
 ];
 
-// Everything here is used in at least one of my repositories.
+// The main things I build with. Everyday tools (Git, Docker, Linux, Nginx...) are left out on purpose.
 export const skills = [
-  { group: 'Languages', items: ['Java', 'C++', 'Python', 'C', 'SQL', 'TypeScript'] },
-  { group: 'Backend', items: ['Spring Boot', 'Spring Security', 'Hibernate', 'FastAPI'] },
-  { group: 'Frontend', items: ['React', 'Tailwind CSS'] },
-  { group: 'Databases', items: ['PostgreSQL', 'Supabase'] },
-  { group: 'DevOps & Cloud', items: ['Docker', 'Nginx', 'GitHub Actions', 'Linux', 'Azure'] },
-  { group: 'AI', items: ['LangGraph', 'RAG', 'LLM APIs'] },
-  { group: 'Core CS', items: ['DSA', 'OOP', 'DBMS', 'Operating Systems', 'Computer Networks'] },
+  'Java',
+  'C++',
+  'Python',
+  'C',
+  'TypeScript',
+  'SQL',
+  'Spring Boot',
+  'Spring Security',
+  'PostgreSQL',
+  'React',
+  'Tailwind CSS',
+  'FastAPI',
+  'Supabase',
+  'LangGraph',
 ];
 
 // Repos in the GitHub grid, in order. Stars, language and "updated" come live from the API;
