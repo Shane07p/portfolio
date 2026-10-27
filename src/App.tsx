@@ -1,4 +1,4 @@
-import { showGallery } from './data/content';
+import { gallery, showGallery } from './data/content';
 import { useLiveStats } from './hooks/useLiveStats';
 import { useRevealObserver } from './hooks/useReveal';
 import { About } from './components/About';
@@ -34,7 +34,7 @@ export default function App() {
         <Roles />
         <Stack />
         <GitHubSection github={github} />
-        {showGallery && <Gallery />}
+        {showGallery && gallery.some((g) => g.image) && <Gallery />}
         <About />
         <Contact />
       </main>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { projects } from '../data/content';
 import { DisplayHeading } from './DisplayHeading';
-import { ImageSlot } from './ImageSlot';
 import './Work.css';
 
 // Accordion: hovering, clicking or keyboard-activating a row opens that project.
@@ -48,8 +47,14 @@ export function Work() {
                 <span className="work__num">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="work__name">{p.name}</h3>
                 <div className="work__metric">
-                  <div className="work__metric-value">{p.metric}</div>
-                  <div className="work__metric-label">{p.metricLabel}</div>
+                  {p.metric ? (
+                    <>
+                      <div className="work__metric-value">{p.metric}</div>
+                      <div className="work__metric-label">{p.metricLabel}</div>
+                    </>
+                  ) : (
+                    p.status && <span className="work__status">{p.status}</span>
+                  )}
                 </div>
               </div>
 
@@ -57,11 +62,14 @@ export function Work() {
                 <div className="work__expand-inner">
                   <div className="work__body">
                     <div className="work__text">
+                      {p.context && <div className="work__context">{p.context}</div>}
                       <p className="work__tagline">{p.tagline}</p>
-                      <ul className="arrow-list work__bullets">
-                        {p.bullets.map((b) => (
-                          <li key={b} className="arrow-row">
-                            {b}
+                      <ul className="arrow-list work__points">
+                        {p.points.map((pt) => (
+                          <li key={pt.head} className="arrow-row">
+                            <span>
+                              <strong>{pt.head}</strong> {pt.body}
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -74,9 +82,11 @@ export function Work() {
                         ))}
                       </div>
                     </div>
-                    <div className="work__shot">
-                      <ImageSlot src={p.image} alt={`${p.name} screenshot`} placeholder={`Drop a ${p.name} screenshot`} />
-                    </div>
+                    {p.image && (
+                      <div className="work__shot">
+                        <img className="cover-img" src={p.image} alt={`${p.name} screenshot`} loading="lazy" />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

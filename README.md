@@ -26,7 +26,8 @@ Images: put files in `public/images/` and set the matching field, e.g.
 - LinkedIn post preview → `timeline[..].items[..].post.image`
 - gallery photo → `gallery[i].image`
 
-Unset images render as labelled placeholders. Replace the resume at `public/Shane_Christian_Resume.pdf`.
+Anything without an image simply hides it (the gallery section appears once it has a photo).
+The resume is a Google Drive link in `profile.resume`.
 
 ## Layout
 

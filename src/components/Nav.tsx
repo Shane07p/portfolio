@@ -34,9 +34,11 @@ export function Nav() {
             <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
           </svg>
         </button>
-        <a href={profile.resume} target="_blank" rel="noreferrer" className="nav__resume">
-          Resume ↓
-        </a>
+        {profile.resume && (
+          <a href={profile.resume} target="_blank" rel="noreferrer" className="nav__resume">
+            Resume ↗
+          </a>
+        )}
       </div>
     </nav>
   );

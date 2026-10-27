@@ -141,9 +141,9 @@
   background: var(--bg2);
 }
 
-.ms__post-shot .slot--empty {
-  padding: 6px;
-  font-size: 10px;
+.ms__post--text {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 12px 14px;
 }
 
 .ms__post-meta {

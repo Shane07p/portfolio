@@ -1,11 +1,11 @@
 import { githubFallback, profile } from '../data/content';
-import type { GitHubStats } from '../hooks/useLiveStats';
+import { toRepoCards, type GitHubStats } from '../hooks/useLiveStats';
 import { DisplayHeading } from './DisplayHeading';
 import './GitHubSection.css';
 
 export function GitHubSection({ github }: { github: GitHubStats | null }) {
   const stats = github ?? githubFallback;
-  const repos = stats.repos.length ? stats.repos : githubFallback.repos;
+  const repos = github?.repos ?? toRepoCards();
   const { user, url } = profile.github;
 
   return (

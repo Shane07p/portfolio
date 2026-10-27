@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { timeline } from '../data/content';
 import { clamp } from '../hooks/motion';
-import { ImageSlot } from './ImageSlot';
 import './Milestones.css';
 
 // Marker position along the field; floored so a top rank stays visible.
@@ -72,10 +71,12 @@ export function Milestones() {
                   <h4 className="ms__name">{a.title}</h4>
                   <div className="ms__detail">{a.detail}</div>
                   {a.post && (
-                    <div className="ms__post">
-                      <div className="ms__post-shot">
-                        <ImageSlot src={a.post.image} alt={`LinkedIn post: ${a.title}`} placeholder="Post screenshot" />
-                      </div>
+                    <div className={a.post.image ? 'ms__post' : 'ms__post ms__post--text'}>
+                      {a.post.image && (
+                        <div className="ms__post-shot">
+                          <img className="cover-img" src={a.post.image} alt={`LinkedIn post: ${a.title}`} loading="lazy" />
+                        </div>
+                      )}
                       <div className="ms__post-meta">
                         <span className="ms__post-src">
                           <span className="ms__li" aria-hidden="true">

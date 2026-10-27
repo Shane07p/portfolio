@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { codeforces, profile } from '../data/content';
+import { codeforces, featuredRepos, profile } from '../data/content';
 
 export type CfUser = { rating: number; maxRating: number; rank: string };
 export type RepoCard = { name: string; desc: string; lang: string; stars: number; url: string; updated: string };
@@ -13,7 +13,6 @@ type GhRepo = {
   stargazers_count: number;
   html_url: string;
   pushed_at: string;
-  fork: boolean;
 };
 
 // Unauthenticated GitHub calls are limited to 60/hour per visitor IP, so responses are cached
@@ -47,6 +46,22 @@ function ago(date: string) {
   return `${Math.floor(days / 365)}y ago`;
 }
 
+// Cards for featuredRepos, overlaid with live data where the API returned the repo.
+export function toRepoCards(live: GhRepo[] = []): RepoCard[] {
+  const byName = new Map(live.map((r) => [r.name.toLowerCase(), r]));
+  return featuredRepos.map((f) => {
+    const r = byName.get(f.repo.toLowerCase());
+    return {
+      name: f.title,
+      desc: f.desc,
+      lang: r?.language ?? f.lang,
+      stars: r?.stargazers_count ?? f.stars,
+      url: r?.html_url ?? `${profile.github.url}/${f.repo}`,
+      updated: r ? ago(r.pushed_at) : '',
+    };
+  });
+}
+
 // Live Codeforces rating and GitHub stats. Both stay null on failure so callers use fallbacks.
 export function useLiveStats() {
   const [cf, setCf] = useState<CfUser | null>(null);
@@ -69,24 +84,9 @@ export function useLiveStats() {
       .catch(() => {});
 
     const base = `https://api.github.com/users/${profile.github.user}`;
-    Promise.all([getJson<GhUser>(base, signal), getJson<GhRepo[]>(`${base}/repos?sort=pushed&per_page=12`, signal)])
+    Promise.all([getJson<GhUser>(base, signal), getJson<GhRepo[]>(`${base}/repos?per_page=100`, signal)])
       .then(([user, repos]) => {
-        const self = profile.github.user.toLowerCase();
-        setGithub({
-          publicRepos: user.public_repos,
-          followers: user.followers,
-          repos: repos
-            .filter((r) => !r.fork && r.name.toLowerCase() !== self)
-            .slice(0, 6)
-            .map((r) => ({
-              name: r.name,
-              desc: r.description || 'No description yet.',
-              lang: r.language || '—',
-              stars: r.stargazers_count,
-              url: r.html_url,
-              updated: ago(r.pushed_at),
-            })),
-        });
+        setGithub({ publicRepos: user.public_repos, followers: user.followers, repos: toRepoCards(repos) });
       })
       .catch(() => {});
 

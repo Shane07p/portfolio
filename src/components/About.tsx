@@ -1,5 +1,4 @@
 import { about, profile } from '../data/content';
-import { ImageSlot } from './ImageSlot';
 import './About.css';
 
 export function About() {
@@ -9,7 +8,7 @@ export function About() {
         <div data-reveal="" className="about__photo">
           <div aria-hidden="true" className="about__shadow" />
           <div className="about__frame">
-            <ImageSlot src={profile.portrait} alt={`Portrait of ${profile.name}`} placeholder="Drop your photo" />
+            {profile.portrait && <img className="cover-img" src={profile.portrait} alt={`Portrait of ${profile.name}`} loading="lazy" />}
           </div>
           <div aria-hidden="true" className="about__badge">
             <svg viewBox="0 0 120 120">

@@ -1,8 +1,10 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 import { gallery } from '../data/content';
 import { DisplayHeading } from './DisplayHeading';
-import { ImageSlot } from './ImageSlot';
 import './Gallery.css';
+
+// Only photos that have been added are shown; App hides the section when there are none.
+const photos = gallery.filter((g) => g.image);
 
 // Horizontal photo strip: native scroll/swipe, mouse drag, and prev/next buttons.
 export function Gallery() {
@@ -74,10 +76,10 @@ export function Gallery() {
       </div>
 
       <div ref={railRef} data-cursor="Drag" className="gallery__rail">
-        {gallery.map((g, i) => (
+        {photos.map((g, i) => (
           <figure key={g.cap} data-reveal="" className="gallery__item" style={{ transitionDelay: `${i * 0.06}s` }}>
             <div className="gallery__frame" style={{ width: g.width, '--tilt': g.tilt } as CSSProperties}>
-              <ImageSlot src={g.image} alt={g.cap} placeholder={g.placeholder} />
+              <img className="cover-img" src={g.image} alt={g.cap} loading="lazy" draggable={false} />
             </div>
             <figcaption className="gallery__cap">
               <span className="gallery__num">{String(i + 1).padStart(2, '0')}</span>
