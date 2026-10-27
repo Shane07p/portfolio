@@ -7,9 +7,7 @@ export const profile = {
   // Google Drive link to the resume. The nav's Resume button stays hidden while this is empty.
   resume: 'https://drive.google.com/file/d/1J0jA4dMs5DYmk7uuvB6jjvBlBtl8aX6Y/view?usp=sharing',
   city: 'Ahmedabad',
-  availability: 'Open to SDE internships · Summer 2027',
-  roles: 'Backend engineer / Competitive programmer',
-  pitch: 'I build REST APIs that stay fast under load, then load-test them until the numbers hold.',
+  pitch: 'Competitive programming taught me to write fast code. Backend work taught me to prove it.',
   portrait: '/images/portrait.webp' as string | undefined,
   github: { user: 'Shane07p', url: 'https://github.com/Shane07p' },
   linkedin: 'https://www.linkedin.com/in/shane-christian-7a928031a/',

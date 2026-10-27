@@ -1,19 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { profile } from '../data/content';
 import { prefersReducedMotion } from '../hooks/motion';
 import { MeshCanvas } from './MeshCanvas';
 import './Hero.css';
-
-const istTime = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' });
-
-function useIstClock() {
-  const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 15_000);
-    return () => clearInterval(id);
-  }, []);
-  return istTime.format(now);
-}
 
 const [firstName, lastName] = profile.name.split(' ');
 const delay = (i: number) => ({ transitionDelay: `${(i * 0.04).toFixed(2)}s` });
@@ -21,7 +10,6 @@ const delay = (i: number) => ({ transitionDelay: `${(i * 0.04).toFixed(2)}s` });
 export function Hero() {
   const meshRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
-  const clock = useIstClock();
 
   // Parallax: the name drifts down and fades, the mesh drifts slower and zooms.
   useEffect(() => {
@@ -58,18 +46,6 @@ export function Hero() {
       <div className="hero__shade" />
 
       <div ref={topRef} className="hero__top">
-        <div data-reveal="" className="hero__meta">
-          <span className="hero__status">
-            <span className="hero__pulse" />
-            {profile.availability}
-          </span>
-          <span className="hero__roles">
-            <span>{profile.roles}</span>
-            <span className="hero__clock">
-              {profile.city} {clock} IST
-            </span>
-          </span>
-        </div>
         <h1 className="hero__name" aria-label={profile.name}>
           <span aria-hidden="true" className="hero__line">
             {[...firstName].map((ch, i) => (

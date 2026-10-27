@@ -36,41 +36,6 @@
   will-change: transform, opacity;
 }
 
-.hero__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.hero__status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.hero__pulse {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #4ade80;
-  animation: pulse 2s infinite;
-}
-
-.hero__roles {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.hero__clock {
-  opacity: 0.75;
-}
-
 .hero__name {
   margin: clamp(20px, 4vh, 48px) 0 0;
   font-family: var(--font-display);
