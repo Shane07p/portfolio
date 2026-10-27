@@ -1,0 +1,6 @@
+node_modules
+dist
+*.local
+
+# Claude Design export (source of the design, not part of the site)
+*.zip

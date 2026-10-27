@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shane Christian · Backend Engineer</title>
+    <meta name="description" content="Shane Christian: backend engineer and competitive programmer. Spring Boot, PostgreSQL, load-tested REST APIs. Codeforces Expert, ICPC regionalist." />
+    <meta property="og:title" content="Shane Christian · Backend Engineer" />
+    <meta property="og:description" content="I build REST APIs that stay fast under load, then load-test them until the numbers hold." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#2A1466" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
+    <script>
+      // Runs before paint: apply saved theme and enable reveal animations without a flash.
+      (function () {
+        var html = document.documentElement;
+        html.classList.add('js');
+        try {
+          var saved = localStorage.getItem('sc-theme');
+          if (saved === 'light' || saved === 'dark') html.dataset.theme = saved;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
