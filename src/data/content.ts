@@ -246,15 +246,12 @@ export const experience = [
 
 // Everything here is used in at least one of my repositories.
 export const skills = [
-  { group: 'Languages', items: ['Java', 'Python', 'C', 'C++', 'TypeScript', 'JavaScript', 'SQL'] },
-  { group: 'Backend', items: ['Spring Boot', 'Spring Security', 'Spring Data JPA', 'Hibernate', 'JDBC', 'Flyway', 'FastAPI', 'REST', 'OAuth2 & JWT'] },
-  { group: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'TanStack Query'] },
-  { group: 'Databases', items: ['PostgreSQL', 'PL/pgSQL', 'Supabase', 'pgvector'] },
-  { group: 'AI', items: ['LangGraph', 'LangChain', 'RAG', 'Gemini API', 'Groq', 'Ollama'] },
-  { group: 'Systems', items: ['TCP sockets', 'POSIX threads', 'Linux', 'Make'] },
-  { group: 'Cloud & DevOps', items: ['Docker', 'Nginx', 'GitHub Actions', 'Azure', 'Render', 'Vercel', 'DigitalOcean', 'Cloudinary'] },
-  { group: 'Testing', items: ['JUnit', 'Testcontainers', 'pytest', 'Vitest', 'Cypress', 'k6'] },
-  { group: 'Tools', items: ['Git', 'Maven', 'uv', 'Postman', 'Swagger', 'pgAdmin'] },
+  { group: 'Languages', items: ['Java', 'C++', 'Python', 'C', 'SQL', 'TypeScript'] },
+  { group: 'Backend', items: ['Spring Boot', 'Spring Security', 'Hibernate', 'FastAPI'] },
+  { group: 'Frontend', items: ['React', 'Tailwind CSS'] },
+  { group: 'Databases', items: ['PostgreSQL', 'Supabase'] },
+  { group: 'DevOps & Cloud', items: ['Docker', 'Nginx', 'GitHub Actions', 'Linux', 'Azure'] },
+  { group: 'AI', items: ['LangGraph', 'RAG', 'LLM APIs'] },
   { group: 'Core CS', items: ['DSA', 'OOP', 'DBMS', 'Operating Systems', 'Computer Networks'] },
 ];
 

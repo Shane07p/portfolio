@@ -67,6 +67,11 @@
   transition: color 0.6s ease, -webkit-text-stroke-color 0.6s ease;
 }
 
+/* The column is sized for four-digit years; word labels like "Campus" need a smaller size to fit. */
+.ms__year-num--word {
+  font-size: clamp(22px, 3.2vw, 52px);
+}
+
 .ms__year.is-active .ms__year-num {
   color: var(--accent);
   -webkit-text-stroke-color: var(--accent);

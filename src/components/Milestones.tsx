@@ -57,7 +57,7 @@ export function Milestones() {
       {timeline.map((y, i) => (
         <div key={y.year} data-year="" className={i <= activeYear ? 'ms__year is-active' : 'ms__year'}>
           <div className="ms__year-side">
-            <div className="ms__year-num">{y.year}</div>
+            <div className={/^\d{4}$/.test(y.year) ? 'ms__year-num' : 'ms__year-num ms__year-num--word'}>{y.year}</div>
             <div className="ms__count">
               {y.items.length} {y.items.length > 1 ? 'milestones' : 'milestone'}
             </div>
