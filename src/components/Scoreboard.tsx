@@ -1,4 +1,4 @@
-import { codeforces, platforms } from '../data/content';
+import { codeforces, platforms, problemsSolved } from '../data/content';
 import type { CfUser } from '../hooks/useLiveStats';
 import { DisplayHeading } from './DisplayHeading';
 import { Milestones } from './Milestones';
@@ -27,7 +27,7 @@ export function Scoreboard({ cf }: { cf: CfUser | null }) {
       <div className="section-head">
         <DisplayHeading>Scoreboard</DisplayHeading>
         <div data-reveal="" className="mono-label">
-          1,500+ problems solved
+          {problemsSolved} problems solved
         </div>
       </div>
 

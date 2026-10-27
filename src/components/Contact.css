@@ -89,24 +89,37 @@
 }
 
 .contact__link {
+  width: 100%;
   padding: 24px 24px 24px 0;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
+  align-items: center;
+  gap: 14px;
+  border: 0;
   border-bottom: 1.5px solid #fff;
+  background: none;
   font-family: var(--font-display);
   font-size: 26px;
   font-weight: 700;
   letter-spacing: -0.03em;
+  text-align: left;
   color: #fff;
+  transition: color 0.2s;
 }
 
-a.contact__link:hover {
+.contact__link svg {
+  flex-shrink: 0;
+}
+
+.contact__link:hover {
   color: var(--accent-deep);
 }
 
-.contact__discord {
+.contact__arrow {
+  font-size: 20px;
+}
+
+.contact__handle {
+  margin-left: auto;
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 400;

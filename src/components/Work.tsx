@@ -46,15 +46,9 @@ export function Work() {
               >
                 <span className="work__num">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="work__name">{p.name}</h3>
-                <div className="work__metric">
-                  {p.metric ? (
-                    <>
-                      <div className="work__metric-value">{p.metric}</div>
-                      <div className="work__metric-label">{p.metricLabel}</div>
-                    </>
-                  ) : (
-                    p.status && <span className="work__status">{p.status}</span>
-                  )}
+                <div className="work__meta">
+                  <div className="work__kind">{p.kind}</div>
+                  {p.status ? <span className="work__status">{p.status}</span> : <div className="work__year">{p.year}</div>}
                 </div>
               </div>
 
@@ -62,18 +56,30 @@ export function Work() {
                 <div className="work__expand-inner">
                   <div className="work__body">
                     <div className="work__text">
-                      {p.context && <div className="work__context">{p.context}</div>}
-                      <p className="work__tagline">{p.tagline}</p>
-                      <ul className="arrow-list work__points">
-                        {p.points.map((pt) => (
-                          <li key={pt.head} className="arrow-row">
-                            <span>
-                              <strong>{pt.head}</strong> {pt.body}
-                            </span>
-                          </li>
+                      <p className="work__summary">{p.summary}</p>
+                      <div className="work__block">
+                        <h4 className="work__label">What it’s for</h4>
+                        <p>{p.purpose}</p>
+                      </div>
+                      <div className="work__block">
+                        <h4 className="work__label">What it does</h4>
+                        <ul className="arrow-list work__features">
+                          {p.features.map((f) => (
+                            <li key={f} className="arrow-row">
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="work__block">
+                        <h4 className="work__label">How it’s built</h4>
+                        <p>{p.build}</p>
+                      </div>
+                      <ul className="work__stack" aria-label="Built with">
+                        {p.stack.map((s) => (
+                          <li key={s}>{s}</li>
                         ))}
                       </ul>
-                      <div className="work__stack">{p.stack}</div>
                       <div className="work__links">
                         {p.links.map((l) => (
                           <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="work__link">

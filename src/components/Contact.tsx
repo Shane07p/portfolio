@@ -1,26 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
-import { codeforces, profile } from '../data/content';
+import { profile } from '../data/content';
+import { BrandIcon } from './BrandIcon';
 import './Contact.css';
 
-const socials = [
-  { label: 'LinkedIn', href: profile.linkedin },
-  { label: 'GitHub', href: profile.github.url },
-  { label: 'Codeforces', href: codeforces.url },
-];
+type Copyable = 'email' | 'discord';
 
 export function Contact() {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<Copyable | null>(null);
   const timer = useRef(0);
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  const copyEmail = () => {
+  const copy = (what: Copyable, text: string) => {
     navigator.clipboard
-      ?.writeText(profile.email)
+      ?.writeText(text)
       .then(() => {
-        setCopied(true);
+        setCopied(what);
         clearTimeout(timer.current);
-        timer.current = window.setTimeout(() => setCopied(false), 1800);
+        timer.current = window.setTimeout(() => setCopied(null), 1800);
       })
       .catch(() => {});
   };
@@ -45,31 +42,49 @@ export function Contact() {
         <a href={`mailto:${profile.email}`} className="contact__email">
           {profile.email}
         </a>
-        <button type="button" className="contact__copy" onClick={copyEmail}>
-          {copied ? 'Copied ✓' : 'Copy email'}
+        <button type="button" className="contact__copy" onClick={() => copy('email', profile.email)}>
+          {copied === 'email' ? 'Copied ✓' : 'Copy email'}
         </button>
-        <span className="sr-only" role="status">
-          {copied ? 'Email address copied' : ''}
-        </span>
       </div>
 
       <div data-reveal="" className="contact__links">
-        {socials.map((s) => (
-          <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="contact__link">
-            {s.label} <span aria-hidden="true">↗</span>
-          </a>
-        ))}
-        <div className="contact__link">
-          Discord <span className="contact__discord">{profile.discord}</span>
-        </div>
+        <a href={profile.linkedin} target="_blank" rel="noreferrer" className="contact__link">
+          <BrandIcon name="linkedin" />
+          LinkedIn
+          <span aria-hidden="true" className="contact__arrow">
+            ↗
+          </span>
+        </a>
+        <a href={profile.github.url} target="_blank" rel="noreferrer" className="contact__link">
+          <BrandIcon name="github" />
+          GitHub
+          <span aria-hidden="true" className="contact__arrow">
+            ↗
+          </span>
+        </a>
+        <button
+          type="button"
+          className="contact__link"
+          onClick={() => copy('discord', profile.discord)}
+          aria-label={`Copy Discord username ${profile.discord}`}
+        >
+          <BrandIcon name="discord" />
+          Discord
+          <span className="contact__handle">{copied === 'discord' ? 'Copied ✓' : profile.discord}</span>
+        </button>
       </div>
+      <span className="sr-only" role="status">
+        {copied ? `${copied === 'email' ? 'Email address' : 'Discord username'} copied` : ''}
+      </span>
 
       <div aria-hidden="true" className="contact__wordmark">
         shane.
       </div>
 
       <footer className="contact__footer">
-        <span>© {new Date().getFullYear()} {profile.name}</span>
+        <span>
+          © {new Date().getFullYear()} {profile.name}
+        </span>
         <span>{profile.city}, India</span>
         <a href="#top">Back to top ↑</a>
       </footer>

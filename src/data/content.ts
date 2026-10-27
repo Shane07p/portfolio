@@ -7,12 +7,14 @@ export const profile = {
   // Google Drive link to the resume. The nav's Resume button stays hidden while this is empty.
   resume: 'https://drive.google.com/file/d/1J0jA4dMs5DYmk7uuvB6jjvBlBtl8aX6Y/view?usp=sharing',
   city: 'Ahmedabad',
-  pitch: 'Competitive programming taught me to write fast code. Backend work taught me to prove it.',
+  pitch: 'I build backend systems and solve competitive programming problems. Third-year student at DA-IICT.',
   portrait: '/images/portrait.webp' as string | undefined,
   github: { user: 'Shane07p', url: 'https://github.com/Shane07p' },
   linkedin: 'https://www.linkedin.com/in/shane-christian-7a928031a/',
   discord: 'soulvenom6772',
 };
+
+export const problemsSolved = '2,000+';
 
 export const marquee = [
   'Backend engineer',
@@ -25,17 +27,25 @@ export const marquee = [
   'DA-IICT ’28',
 ];
 
+export const exploring = {
+  lead: 'Currently exploring',
+  accent: 'reliable systems, backend development and agentic AI.',
+};
+
 export type Project = {
   name: string;
-  // Set for unfinished work: shown as a tag in place of the headline metric.
+  // Shown on the right of the collapsed row.
+  kind: string;
+  year: string;
   status?: string;
-  // Who/what it was built for, when that isn't just "me", e.g. a course team project.
-  context?: string;
-  tagline: string;
-  metric?: string;
-  metricLabel?: string;
-  points: { head: string; body: string }[];
-  stack: string;
+  // What it is, in a sentence or two.
+  summary: string;
+  // Who it's for and why it exists.
+  purpose: string;
+  features: string[];
+  // How it's built, in plain words.
+  build: string;
+  stack: string[];
   links: { label: string; href: string }[];
   image?: string;
 };
@@ -43,17 +53,22 @@ export type Project = {
 export const projects: Project[] = [
   {
     name: 'StudSpace',
-    tagline:
-      'One place for PYQs, notes, playlists and the 75% attendance maths, plus an AI assistant that answers from your own course PDFs.',
-    metric: '163→25ms',
-    metricLabel: 'dashboard p95',
-    points: [
-      { head: 'Fast where it counts.', body: 'The dashboard was firing 17 queries per load because of an N+1. Restructuring it down to 6 cut p95 latency from 163ms to 25ms.' },
-      { head: 'Load-tested, not guessed.', body: 'Under k6, Nginx upstream keepalive and a tuned HikariCP pool tripled throughput to 4,800 req/s at 0% errors.' },
-      { head: 'Locked down.', body: 'Stateless JWT and Google OAuth2, Bucket4j rate limiting, per-user ownership checks, and uploads checked by their magic bytes rather than their file extension.' },
-      { head: 'Reads your notes.', body: 'The assistant uses Groq’s LLaMA 3.3 70B and Google Gemini to answer from the PDFs students upload.' },
+    kind: 'Web app',
+    year: '2026',
+    summary: 'A study workspace for university students. Courses, notes, attendance and an AI assistant, all in one place.',
+    purpose:
+      'Students usually keep their PYQs, notes and playlists spread across group chats and drives, and work out the 75% attendance rule by hand. StudSpace keeps all of that together, semester by semester.',
+    features: [
+      'Add your semesters and courses, and attach notes, links and PDFs to each course.',
+      'Mark attendance every day and see how many classes you can skip, or still need to attend, to stay above 75%.',
+      'Work out your CGPA from the actual credits of your courses.',
+      'Ask the AI assistant about your own PDFs. It remembers the conversation and shows maths properly.',
+      'Share a semester with friends through a public link. They don’t need an account to see it.',
+      'Sign in with Google or with email.',
     ],
-    stack: 'Java · Spring Boot · PostgreSQL 16 · React · Docker · Nginx · Azure',
+    build:
+      'The backend is a Spring Boot REST API on PostgreSQL, with JWT and Google OAuth for sign-in and rate limiting on login. The frontend is React with Vite and Tailwind. PDFs are stored on Cloudinary, and the assistant reads them with Google Gemini, falling back to Groq’s LLaMA 3.3 70B for text. It all runs in Docker on Azure behind Nginx. I also load-tested it with k6 and fixed a slow dashboard query that the tests turned up.',
+    stack: ['Java', 'Spring Boot', 'Spring Security', 'PostgreSQL', 'React', 'Tailwind CSS', 'Docker', 'Nginx', 'Azure', 'Gemini API'],
     links: [
       { label: 'Live', href: 'https://studspace.shane07p.me/' },
       { label: 'Source', href: 'https://github.com/shane07p/StudSpace' },
@@ -62,17 +77,21 @@ export const projects: Project[] = [
   },
   {
     name: 'UrbanServe',
-    tagline:
-      'The backend of a hyperlocal home-services marketplace: customers browse and book, providers get assigned, then payment and reviews close the loop.',
-    metric: '22 tables',
-    metricLabel: 'BCNF · RLS on all',
-    points: [
-      { head: 'The database does the heavy lifting.', body: 'Materialized views turn multi-table analytics JOINs into single-table lookups, and PL/pgSQL triggers keep provider ratings current with no application code.' },
-      { head: 'All-or-nothing bookings.', body: 'One stored procedure commits the booking, its items and its status log atomically, so a failure never leaves half a booking behind.' },
-      { head: 'Safe to expose.', body: 'Supabase auto-generates a public API from the schema, so Row-Level Security is enforced on every table.' },
-      { head: 'Indexes earn their place.', body: '30+ indexes, each driven by a real query; speculative ones were pruned because they cost write throughput.' },
+    kind: 'Backend & database',
+    year: '2026',
+    summary:
+      'The database and REST API behind a home-services marketplace, where people book local professionals for plumbing, electrical work, AC servicing, cleaning and repairs.',
+    purpose:
+      'It’s for customers who need someone at their door for a repair or a service, and for the professionals who take those jobs. Most of the work went into the database, so that bookings, payments and reviews stay consistent even if the app on top gets something wrong.',
+    features: [
+      'Customers browse services by category and area, book one or more of them, apply coupons and pay.',
+      'Providers set when they’re available and upload documents to get verified.',
+      'Each booking keeps a history of its status, from the request to completion or cancellation.',
+      'Customers can review the provider and the service separately, or raise a complaint.',
     ],
-    stack: 'Java · Spring Boot · PostgreSQL · PL/pgSQL · Supabase · Docker · Render · Swagger',
+    build:
+      'The schema has 22 tables across 7 modules, all normalised to BCNF. A booking and its items are saved by one stored procedure, so they go through together or not at all. Triggers keep ratings up to date and materialised views serve the reporting queries. The REST API is Spring Boot on plain JDBC, documented with Swagger, and Row-Level Security protects every table on Supabase. It’s deployed on Render.',
+    stack: ['Java', 'Spring Boot', 'JDBC', 'PostgreSQL', 'PL/pgSQL', 'Supabase', 'Docker', 'Render', 'Swagger'],
     links: [
       { label: 'Live API', href: 'https://urbanserve.shane07p.me/swagger-ui/index.html' },
       { label: 'Source', href: 'https://github.com/shane07p/UrbanServe-Home-Services-Database-System' },
@@ -80,44 +99,58 @@ export const projects: Project[] = [
   },
   {
     name: 'GeoNav',
-    tagline: 'A routing engine in Java: shortest paths, multi-stop trips and nearest-place lookups on a city-scale graph.',
-    metric: '3× faster',
-    metricLabel: 'A* vs Dijkstra, 100K nodes',
-    points: [
-      { head: 'A* vs Dijkstra, measured.', body: 'On a graph of 100K nodes and 400K edges, A* with a Haversine heuristic ran 3× faster than Dijkstra.' },
-      { head: 'Nearest place in O(log n).', body: 'A QuadTree with branch-and-bound pruning answers nearest-neighbour queries 11.9× faster than a linear scan.' },
-      { head: 'Swap algorithms live.', body: 'The Strategy pattern lets the console app switch algorithms at runtime, plan multi-stop routes and edit the map as it runs.' },
+    kind: 'Routing engine',
+    year: '2026',
+    summary: 'A route planner that runs in the terminal. Give it a city map and it finds routes between places, and what’s nearby.',
+    purpose:
+      'It’s a small version of what a map app does underneath: graph search to find a route, and a spatial index to find the closest places quickly.',
+    features: [
+      'Find the shortest route by distance with Dijkstra, or the fastest one by time with A*, and compare the two.',
+      'Plan a trip with several stops.',
+      'Find the nearest point on the map, or the closest places of a given type.',
+      'Add places and roads while it runs. Maps load from seed files that are checked as they load.',
     ],
-    stack: 'Java · Graph algorithms · A* · QuadTree · Strategy pattern',
+    build:
+      'Plain Java, no libraries. Each routing algorithm is a separate strategy, so you can switch between them while the program runs. A QuadTree handles the nearest-place searches in O(log n), which came out about 12 times faster than checking every point. On a test map with 100,000 points and 400,000 roads, A* was about 3 times faster than Dijkstra.',
+    stack: ['Java', 'Graph algorithms', 'A* search', 'QuadTree', 'OOP'],
     links: [{ label: 'Source', href: 'https://github.com/shane07p/GeoNav' }],
   },
   {
     name: 'Vulnpath',
+    kind: 'Security tool',
+    year: '2026',
     status: 'In progress',
-    tagline:
-      'Dependency triage for Python. Every scanner tells you which packages have CVEs; Vulnpath tells you which ones your code actually reaches, and what kind of fix each needs.',
-    points: [
-      { head: 'Most alerts are noise.', body: 'You can depend on a vulnerable package and never call the vulnerable code. Vulnpath builds a call graph from your source into the installed dependency code and marks each finding reachable, not reachable or unknown, printing the call path.' },
-      { head: '“Just upgrade” often fails.', body: 'When the vulnerable package sits three levels deep under a parent’s pin, it classifies the shape of the fix and prints the exact command: a direct bump, an override or a lockfile refresh.' },
-      { head: 'Reads what was installed.', body: 'It parses uv.lock rather than the manifest, queries OSV.dev, and merges advisories that arrive as both GHSA and PYSEC records.' },
-      { head: 'What’s next.', body: 'Reachability is package-level today. Per-function reachability and SARIF output are next.' },
+    summary: 'A command-line tool that checks a Python project for vulnerable dependencies and tells you which ones actually affect your code.',
+    purpose:
+      'Most scanners list every package with a known CVE, even when your code never touches the vulnerable part. And “just upgrade” often doesn’t work when the package sits deep in the dependency tree. Vulnpath is for developers who want a shorter list of real problems, and a clear way to fix each one.',
+    features: [
+      'Reads uv.lock to see exactly which versions are installed, including indirect dependencies.',
+      'Looks up advisories on OSV.dev and merges duplicate records of the same CVE.',
+      'Traces calls from your code into the installed packages and marks each finding as reachable, not reachable or unknown, with the call path.',
+      'Works out what kind of fix each finding needs and prints the command to run.',
     ],
-    stack: 'Python · uv · OSV.dev · Call-graph analysis',
+    build:
+      'Written in Python, with networkx for the call graph, Typer and Rich for the command line, and pydantic for the data. It’s tested with pytest and type-checked with mypy in CI. Right now it checks reachability per package. Checking down to individual functions is next.',
+    stack: ['Python', 'networkx', 'Typer', 'OSV.dev', 'pytest', 'GitHub Actions'],
     links: [{ label: 'Source', href: 'https://github.com/Shane07p/Vulnpath' }],
   },
   {
     name: 'Settle',
+    kind: 'Web platform',
+    year: '2026',
     status: 'In progress',
-    context: 'IT314 team project · Project lead, team of 7',
-    tagline:
-      'A reliability platform for software teams: incident response in the style of incident.io, plus monitoring in the style of Better Stack.',
-    points: [
-      { head: 'Leading a team of 7.', body: 'I lead the project and have written most of its commits so far: 135 of about 170.' },
-      { head: 'Production-shaped from day one.', body: 'A Spring Boot 4 API with Flyway migrations and Testcontainers tests, a React + TypeScript frontend, and CI that builds and tests both, with CodeQL and Dependabot.' },
-      { head: 'Already deployed.', body: 'Frontend on Vercel, API on Render, PostgreSQL on Supabase, watched by UptimeRobot.' },
-      { head: 'Where it stands.', body: 'Login and roles work. The service catalog and incidents API are in progress, and a FastAPI service is stubbed for AI suggestions.' },
+    summary: 'An incident management platform for software teams. It helps a team respond when something breaks, and watches their services the rest of the time.',
+    purpose:
+      'When a service goes down, a team needs one place to see what’s affected, who’s on it and what has been tried. Settle puts that kind of incident response, in the style of incident.io, together with uptime monitoring in the style of Better Stack.',
+    features: [
+      'Sign in with roles for admins, engineers and viewers.',
+      'Keep a catalogue of the services a team runs. (Being built.)',
+      'Open and track incidents from the first alert to the fix. (Being built.)',
+      'Get suggestions from an AI service during an incident. (Early stage.)',
     ],
-    stack: 'Java · Spring Boot 4 · PostgreSQL 16 · React · TypeScript · FastAPI · Docker',
+    build:
+      'A Spring Boot 4 API with Flyway migrations, tested against a real PostgreSQL database using Testcontainers, and a React and TypeScript frontend. Every push is built and tested in GitHub Actions, with CodeQL scanning. The AI service is a separate FastAPI app. It’s deployed on Vercel and Render, with the database on Supabase.',
+    stack: ['Java', 'Spring Boot', 'PostgreSQL', 'Flyway', 'Testcontainers', 'React', 'TypeScript', 'FastAPI', 'GitHub Actions'],
     links: [
       { label: 'API docs', href: 'https://incident-backend-f340.onrender.com/swagger-ui.html' },
       { label: 'Source', href: 'https://github.com/Shane07p/DevOps-Incident-Management-System' },
@@ -126,12 +159,12 @@ export const projects: Project[] = [
 ];
 
 export const proof = {
-  before: [
-    { v: '25ms', l: 'StudSpace dashboard p95, down from 163ms' },
-    { v: '4.8K', l: 'req/s sustained at 0% errors on k6' },
-  ],
+  before: [{ v: problemsSolved, l: 'problems solved across competitive programming sites' }],
   // The live Codeforces rating sits between these two groups.
-  after: [{ v: '#64', l: 'ICPC Asia Amritapuri Regionals 2025' }],
+  after: [
+    { v: '#64', l: 'at ICPC Asia Amritapuri Regionals 2025' },
+    { v: 'Top 50', l: 'at AMS Derive’26, invited to IIT Bombay' },
+  ],
 };
 
 export const codeforces = {
@@ -182,9 +215,9 @@ export const timeline: { year: string; items: Milestone[] }[] = [
     ],
   },
   {
-    year: 'Ever',
+    year: 'Campus',
     items: [
-      { kind: 'Campus', title: 'Winner of 3 institute CP contests', detail: 'Blitz Cup, Robin Relay and Inter-Wing.', stat: '3', of: 'contest wins' },
+      { kind: 'Contests', title: 'Won 3 institute CP contests', detail: 'Blitz Cup, Robin Relay and Inter-Wing.', stat: '3', of: 'contest wins' },
     ],
   },
 ];
@@ -192,41 +225,48 @@ export const timeline: { year: string; items: Milestone[] }[] = [
 export const experience = [
   {
     org: 'Programming Club',
-    role: 'Core Member · Problem Setter, Contest Organizer & Mentor',
+    role: 'Core member: problem setter, contest organiser and mentor',
     when: 'Apr 2026 – Now',
     where: 'DA-IICT',
     bullets: [
-      'Co-organized 5 CP contests; handled problem setting, testing, and mentored juniors.',
-      'Designed pre-placement DSA assessments for 250+ students.',
-      'Coordinated Synapse’26 Codemutant and i.Fest’25 iRelay for 100+ participants.',
+      'Co-organised 5 competitive programming contests, setting and testing the problems.',
+      'Designed the pre-placement DSA tests that 250+ students took.',
+      'Helped run Synapse’26 Codemutant and i.Fest’25 iRelay, with more than 100 participants.',
+      'Mentor juniors who are just starting out with competitive programming.',
     ],
   },
   {
     org: 'Quant Club',
-    role: 'Founding Core Member',
+    role: 'Founding core member',
     when: 'Oct 2026 – Now',
     where: 'DA-IICT',
-    bullets: ['Part of the founding team of the institute’s new quant club, started this academic year.'],
+    bullets: ['One of the people who started DA-IICT’s quant club this year.'],
   },
 ];
 
+// Everything here is used in at least one of my repositories.
 export const skills = [
-  { group: 'Languages', items: ['C', 'C++', 'Java', 'Python', 'SQL'] },
-  { group: 'Frameworks', items: ['Spring Boot', 'Spring Data JPA', 'Hibernate', 'Spring Security'] },
-  { group: 'Data & Cloud', items: ['PostgreSQL', 'Supabase', 'Azure', 'DigitalOcean', 'Render', 'Cloudinary'] },
-  { group: 'Tools', items: ['Git', 'GitHub Actions', 'Linux', 'Docker', 'Maven', 'Nginx', 'Postman', 'Swagger', 'k6', 'PgAdmin'] },
-  { group: 'Core CS', items: ['DSA', 'OOP', 'DBMS', 'Operating Systems'] },
+  { group: 'Languages', items: ['Java', 'Python', 'C', 'C++', 'TypeScript', 'JavaScript', 'SQL'] },
+  { group: 'Backend', items: ['Spring Boot', 'Spring Security', 'Spring Data JPA', 'Hibernate', 'JDBC', 'Flyway', 'FastAPI', 'REST', 'OAuth2 & JWT'] },
+  { group: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'TanStack Query'] },
+  { group: 'Databases', items: ['PostgreSQL', 'PL/pgSQL', 'Supabase', 'pgvector'] },
+  { group: 'AI', items: ['LangGraph', 'LangChain', 'RAG', 'Gemini API', 'Groq', 'Ollama'] },
+  { group: 'Systems', items: ['TCP sockets', 'POSIX threads', 'Linux', 'Make'] },
+  { group: 'Cloud & DevOps', items: ['Docker', 'Nginx', 'GitHub Actions', 'Azure', 'Render', 'Vercel', 'DigitalOcean', 'Cloudinary'] },
+  { group: 'Testing', items: ['JUnit', 'Testcontainers', 'pytest', 'Vitest', 'Cypress', 'k6'] },
+  { group: 'Tools', items: ['Git', 'Maven', 'uv', 'Postman', 'Swagger', 'pgAdmin'] },
+  { group: 'Core CS', items: ['DSA', 'OOP', 'DBMS', 'Operating Systems', 'Computer Networks'] },
 ];
 
 // Repos in the GitHub grid, in order. Stars, language and "updated" come live from the API;
 // titles and descriptions come from here so the wording matches the rest of the site.
 export const featuredRepos = [
-  { repo: 'WallStreet-C-Real-Time-Multithreaded-Stock-Exchange-Simulator', title: 'WallStreet-C', desc: 'Real-time stock exchange simulator in C over TCP, multithreaded with POSIX threads.', lang: 'C', stars: 1 },
-  { repo: 'StudSpace', title: 'StudSpace', desc: 'Full-stack academic workspace: semesters, attendance, CGPA and an AI study assistant.', lang: 'Java', stars: 2 },
-  { repo: 'Vulnpath', title: 'Vulnpath', desc: 'Reachability-aware dependency triage for Python: flags the CVEs your code actually reaches.', lang: 'Python', stars: 1 },
-  { repo: 'DevOps-Incident-Management-System', title: 'Settle', desc: 'Incident response and monitoring platform for software teams. IT314 team project.', lang: 'TypeScript', stars: 2 },
-  { repo: 'UrbanServe-Home-Services-Database-System', title: 'UrbanServe', desc: 'REST API and 22-table BCNF PostgreSQL schema for a home-services marketplace.', lang: 'Java', stars: 1 },
-  { repo: 'GeoNav', title: 'GeoNav', desc: 'Geospatial routing engine: Dijkstra & A*, QuadTree spatial indexing.', lang: 'Java', stars: 2 },
+  { repo: 'WallStreet-C-Real-Time-Multithreaded-Stock-Exchange-Simulator', title: 'WallStreet-C', desc: 'A stock exchange simulator in C. Traders connect over TCP and buy and sell in real time, or let a bot trade for them.', lang: 'C', stars: 1 },
+  { repo: 'StudSpace', title: 'StudSpace', desc: 'A study workspace for university students, with courses, attendance, notes and an AI assistant.', lang: 'Java', stars: 2 },
+  { repo: 'Vulnpath', title: 'Vulnpath', desc: 'Finds which vulnerable dependencies a Python project actually uses, and how to fix them.', lang: 'Python', stars: 1 },
+  { repo: 'DevOps-Incident-Management-System', title: 'Settle', desc: 'An incident management and monitoring platform for software teams.', lang: 'TypeScript', stars: 2 },
+  { repo: 'UrbanServe-Home-Services-Database-System', title: 'UrbanServe', desc: 'The database and REST API behind a home-services marketplace.', lang: 'Java', stars: 1 },
+  { repo: 'GeoNav', title: 'GeoNav', desc: 'A terminal route planner using Dijkstra, A* and a QuadTree.', lang: 'Java', stars: 2 },
 ];
 
 // Shown until (or if) the live GitHub API responds.
@@ -245,22 +285,22 @@ export const gallery: { cap: string; width: string; tilt: string; image?: string
 ];
 
 export const about = {
-  headline: 'Graphs and trees came first.',
-  headlineAccent: 'Then the systems that serve them.',
+  headline: 'Hi, I’m Shane.',
+  headlineAccent: 'Backend developer and competitive programmer.',
   body: [
-    'I’m a B.Tech ICT student at Dhirubhai Ambani University (formerly DA-IICT), Gandhinagar. Seniors there introduced me to competitive programming, and Codeforces became my practice ground: solving problems, entering contests and reading the community’s blogs.',
-    'I learned topics from Errichto, Colin Galen, Vivek Gupta, Gaurav Sen and TLE Eliminators, and drilled them on CSES and the USACO Guide. The biggest lesson: the people around you matter as much as the problems. That’s why I joined the Programming Club and helped found the Quant Club.',
-    'The same habit of measuring everything carries into my engineering. I design normalized schemas, profile queries and load-test APIs with k6 until the numbers hold.',
+    'I’m a third-year B.Tech ICT student at Dhirubhai Ambani University (formerly DA-IICT) in Gandhinagar. Most of what I build is backend work: APIs, databases, and getting them deployed and running properly.',
+    'I got into programming through competitive programming. A few seniors introduced me to it, and I started practising on Codeforces and taking part in contests. Most of what I know came from Codeforces blogs, YouTube channels like Errichto, Colin Galen, Vivek Gupta, Gaurav Sen and TLE Eliminators, and problem sets like CSES and the USACO Guide.',
+    'Something I learned early is how much it helps to be around people who like the same things. That’s why I joined the Programming Club, where I now set problems and help juniors, and why I helped start the Quant Club this year.',
   ],
   stats: [
     { v: '9.16', l: 'CGPA' },
-    { v: '1.5K+', l: 'problems solved' },
+    { v: '2K+', l: 'problems solved' },
     { v: '2', l: 'clubs, core team' },
   ],
   badge: 'DA-IICT · B.TECH ICT · CLASS OF 2028 ·',
   now: [
-    'Exploring agentic AI, building on the LLM features in StudSpace',
-    'Setting and testing problems for Programming Club contests',
-    'Helping start the Quant Club as a founding core member',
+    'Building Vulnpath and Settle',
+    'Setting problems for Programming Club contests',
+    'Helping get the Quant Club off the ground',
   ],
 };

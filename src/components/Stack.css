@@ -24,7 +24,7 @@
 .stack__item {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(24px, 2.8vw, 40px);
+  font-size: clamp(20px, 2.2vw, 32px);
   letter-spacing: -0.04em;
   line-height: 1.15;
   transition: color 0.25s;

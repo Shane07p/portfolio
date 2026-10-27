@@ -3,9 +3,10 @@ import type { CfUser } from '../hooks/useLiveStats';
 import './Proof.css';
 
 export function Proof({ cf }: { cf: CfUser | null }) {
+  const rank = cf?.rank || codeforces.fallback.rank;
   const cfStat = {
     v: String(cf?.rating ?? codeforces.fallback.rating),
-    l: cf ? 'Codeforces rating, live' : 'Codeforces peak rating, Expert',
+    l: `Codeforces rating (${rank.charAt(0).toUpperCase()}${rank.slice(1)})`,
   };
   const stats = [...proof.before, cfStat, ...proof.after];
 
