@@ -19,6 +19,8 @@
   border: 1.5px solid var(--rule);
   background: transparent;
   color: var(--fg);
+  display: grid;
+  place-items: center;
   font-size: 20px;
   transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
@@ -64,19 +66,7 @@
   transform: rotate(0deg) translateY(-8px);
 }
 
-.gallery__cap {
-  display: flex;
-  gap: 14px;
-  align-items: baseline;
-  font-size: 15px;
-}
-
-.gallery__num {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--ink);
-}
-
 .gallery__title {
+  font-size: 15px;
   font-weight: 600;
 }

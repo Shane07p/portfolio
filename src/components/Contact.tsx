@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { profile } from '../data/content';
 import { BrandIcon } from './BrandIcon';
+import { Icon } from './Icon';
 import './Contact.css';
 
 type Copyable = 'email' | 'discord';
+
+const copiedName: Record<Copyable, string> = { email: 'Email address', discord: 'Discord username' };
 
 export function Contact() {
   const [copied, setCopied] = useState<Copyable | null>(null);
@@ -24,9 +27,6 @@ export function Contact() {
 
   return (
     <section id="contact" className="contact">
-      <div data-reveal="" className="contact__label">
-        Contact · Open to SDE internships, Summer 2027
-      </div>
       <h2 className="contact__title">
         <span className="contact__line">
           <span data-rise="">Let’s build</span>
@@ -38,29 +38,33 @@ export function Contact() {
         </span>
       </h2>
 
-      <div data-reveal="" className="contact__email-row">
+      <p className="contact__intro">I’m looking for SDE internships for summer 2027. Reach me by email, LinkedIn or Discord.</p>
+
+      <div className="contact__email-row">
         <a href={`mailto:${profile.email}`} className="contact__email">
           {profile.email}
         </a>
         <button type="button" className="contact__copy" onClick={() => copy('email', profile.email)}>
-          {copied === 'email' ? 'Copied ✓' : 'Copy email'}
+          {copied === 'email' ? (
+            <>
+              <Icon name="check" /> Copied
+            </>
+          ) : (
+            'Copy email'
+          )}
         </button>
       </div>
 
-      <div data-reveal="" className="contact__links">
+      <div className="contact__links">
         <a href={profile.linkedin} target="_blank" rel="noreferrer" className="contact__link">
           <BrandIcon name="linkedin" />
           LinkedIn
-          <span aria-hidden="true" className="contact__arrow">
-            ↗
-          </span>
+          <Icon name="arrow-up-right" className="contact__arrow" />
         </a>
         <a href={profile.github.url} target="_blank" rel="noreferrer" className="contact__link">
           <BrandIcon name="github" />
           GitHub
-          <span aria-hidden="true" className="contact__arrow">
-            ↗
-          </span>
+          <Icon name="arrow-up-right" className="contact__arrow" />
         </a>
         <button
           type="button"
@@ -70,12 +74,10 @@ export function Contact() {
         >
           <BrandIcon name="discord" />
           Discord
-          <span className="contact__handle">{copied === 'discord' ? 'Copied ✓' : profile.discord}</span>
+          <span className="contact__handle">{copied === 'discord' ? 'Copied' : profile.discord}</span>
         </button>
       </div>
-      <span className="sr-only" role="status">
-        {copied ? `${copied === 'email' ? 'Email address' : 'Discord username'} copied` : ''}
-      </span>
+      <output className="sr-only">{copied ? `${copiedName[copied]} copied` : ''}</output>
 
       <div aria-hidden="true" className="contact__wordmark">
         shane.
@@ -86,7 +88,9 @@ export function Contact() {
           © {new Date().getFullYear()} {profile.name}
         </span>
         <span>{profile.city}, India</span>
-        <a href="#top">Back to top ↑</a>
+        <a href="#top">
+          Back to top <Icon name="arrow-up" />
+        </a>
       </footer>
     </section>
   );

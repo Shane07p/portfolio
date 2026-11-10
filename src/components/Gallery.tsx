@@ -1,6 +1,7 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 import { gallery } from '../data/content';
 import { DisplayHeading } from './DisplayHeading';
+import { Icon } from './Icon';
 import './Gallery.css';
 
 // Only photos that have been added are shown; App hides the section when there are none.
@@ -64,27 +65,24 @@ export function Gallery() {
     <section id="gallery" className="gallery">
       <div className="section-head section-head--tight gallery__head">
         <DisplayHeading>Off-screen</DisplayHeading>
-        <div data-reveal="" className="gallery__controls">
-          <span className="mono-label">Drag or scroll →</span>
+        <div className="gallery__controls">
+          <span className="mono-label">Drag or scroll</span>
           <button type="button" className="gallery__btn" aria-label="Previous photos" onClick={() => page(-1)}>
-            ←
+            <Icon name="arrow-left" />
           </button>
           <button type="button" className="gallery__btn" aria-label="Next photos" onClick={() => page(1)}>
-            →
+            <Icon name="arrow-right" />
           </button>
         </div>
       </div>
 
       <div ref={railRef} data-cursor="Drag" className="gallery__rail">
-        {photos.map((g, i) => (
-          <figure key={g.cap} data-reveal="" className="gallery__item" style={{ transitionDelay: `${i * 0.06}s` }}>
+        {photos.map((g) => (
+          <figure key={g.cap} className="gallery__item">
             <div className="gallery__frame" style={{ width: g.width, '--tilt': g.tilt } as CSSProperties}>
               <img className="cover-img" src={g.image} alt={g.cap} loading="lazy" draggable={false} />
             </div>
-            <figcaption className="gallery__cap">
-              <span className="gallery__num">{String(i + 1).padStart(2, '0')}</span>
-              <span className="gallery__title">{g.cap}</span>
-            </figcaption>
+            <figcaption className="gallery__title">{g.cap}</figcaption>
           </figure>
         ))}
       </div>

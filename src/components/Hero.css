@@ -94,11 +94,19 @@
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 18px 30px;
   border-radius: 999px;
   font-weight: 700;
   font-size: 16px;
   transition: transform 0.3s var(--ease-out), background 0.25s, color 0.25s;
+}
+
+.btn:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
 }
 
 .btn--solid {

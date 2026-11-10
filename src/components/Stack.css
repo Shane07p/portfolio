@@ -19,7 +19,7 @@
 
 .stack__chip:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--ink);
 }
 
 @media (max-width: 560px) {

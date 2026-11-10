@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { profile } from '../data/content';
 import { prefersReducedMotion } from '../hooks/motion';
+import { Icon } from './Icon';
 import { MeshCanvas } from './MeshCanvas';
 import './Hero.css';
 
@@ -68,12 +69,10 @@ export function Hero() {
       </div>
 
       <div className="hero__bottom">
-        <p data-reveal="" className="hero__pitch">
-          {profile.pitch}
-        </p>
-        <div data-reveal="" className="hero__ctas" style={{ transitionDelay: '.1s' }}>
+        <p className="hero__pitch">{profile.pitch}</p>
+        <div className="hero__ctas">
           <a href="#work" className="btn btn--solid">
-            See the work ↓
+            See the work <Icon name="arrow-down" />
           </a>
           <a href="#contact" className="btn btn--ghost">
             Get in touch

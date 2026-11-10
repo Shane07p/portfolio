@@ -22,9 +22,12 @@ export default function App() {
 
   return (
     <>
+      <a className="skip-link" href="#content">
+        Skip to content
+      </a>
       <Cursor />
       <Nav />
-      <main>
+      <main id="content" tabIndex={-1}>
         <Hero />
         <Marquee />
         <Proof cf={cf} />

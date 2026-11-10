@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { projects } from '../data/content';
 import { DisplayHeading } from './DisplayHeading';
+import { Icon } from './Icon';
 import './Work.css';
 
-// Accordion: hovering, clicking or keyboard-activating a row opens that project.
+// Accordion: each project name is a button inside its heading. Hover, click, Enter or Space opens it.
 export function Work() {
   const [active, setActive] = useState(0);
 
@@ -13,9 +14,7 @@ export function Work() {
         <DisplayHeading>
           Work<sup>({String(projects.length).padStart(2, '0')})</sup>
         </DisplayHeading>
-        <div data-reveal="" className="mono-label work__hint">
-          Hover or tap a project to open it
-        </div>
+        <p className="mono-label work__hint">Hover or tap a project to open it</p>
       </div>
 
       <div className="rule-top">
@@ -23,34 +22,25 @@ export function Work() {
           const open = i === active;
           const panelId = `project-${i}`;
           return (
-            <article
-              key={p.name}
-              data-reveal=""
-              data-cursor="Open"
-              className={open ? 'work__item is-open' : 'work__item'}
-              onMouseEnter={() => setActive(i)}
-              onClick={() => setActive(i)}
-            >
-              <div
-                className="work__row"
-                role="button"
-                tabIndex={0}
-                aria-expanded={open}
-                aria-controls={panelId}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setActive(i);
-                  }
-                }}
-              >
-                <span className="work__num">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="work__name">{p.name}</h3>
-                <div className="work__meta">
-                  <div className="work__kind">{p.kind}</div>
-                  {p.status ? <span className="work__status">{p.status}</span> : <div className="work__year">{p.year}</div>}
-                </div>
-              </div>
+            <article key={p.name} className={open ? 'work__item is-open' : 'work__item'}>
+              <h3 className="work__heading">
+                <button
+                  type="button"
+                  className="work__row"
+                  data-cursor="Open"
+                  aria-expanded={open}
+                  aria-controls={panelId}
+                  onClick={() => setActive(i)}
+                  onMouseEnter={() => setActive(i)}
+                >
+                  <span className="work__num num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="work__name">{p.name}</span>
+                  <span className="work__meta">
+                    <span className="work__kind">{p.kind}</span>
+                    {p.status ? <span className="work__status">{p.status}</span> : <span className="work__year num">{p.year}</span>}
+                  </span>
+                </button>
+              </h3>
 
               <div className="work__expand" id={panelId} inert={!open}>
                 <div className="work__expand-inner">
@@ -83,7 +73,7 @@ export function Work() {
                       <div className="work__links">
                         {p.links.map((l) => (
                           <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="work__link">
-                            {l.label} ↗
+                            {l.label} <Icon name="arrow-up-right" />
                           </a>
                         ))}
                       </div>

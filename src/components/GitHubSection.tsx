@@ -1,6 +1,7 @@
 import { githubFallback, profile } from '../data/content';
 import { toRepoCards, type GitHubStats } from '../hooks/useLiveStats';
 import { DisplayHeading } from './DisplayHeading';
+import { Icon } from './Icon';
 import './GitHubSection.css';
 
 export function GitHubSection({ github }: { github: GitHubStats | null }) {
@@ -9,39 +10,47 @@ export function GitHubSection({ github }: { github: GitHubStats | null }) {
   const { user, url } = profile.github;
 
   return (
-    <section id="github" className="section">
+    <section id="github" className="section section--sm">
       <div className="section-head section-head--tight">
-        <DisplayHeading>GitHub</DisplayHeading>
-        <div data-reveal="" className="gh__counts">
+        <DisplayHeading size="md">GitHub</DisplayHeading>
+        <dl className="gh__counts">
           <div>
-            <div className="gh__count-value">{stats.publicRepos}</div>
-            <div className="gh__count-label">public repos</div>
+            <dt className="gh__count-label">public repos</dt>
+            <dd className="gh__count-value num">{stats.publicRepos}</dd>
           </div>
           <div>
-            <div className="gh__count-value">{stats.followers}</div>
-            <div className="gh__count-label">followers</div>
+            <dt className="gh__count-label">followers</dt>
+            <dd className="gh__count-value num">{stats.followers}</dd>
           </div>
-        </div>
+        </dl>
       </div>
 
-      <div data-reveal="" className="gh__chart">
+      <div className="gh__chart">
         <div className="gh__chart-head">
           <span>Contributions, last 12 months</span>
           <a href={url} target="_blank" rel="noreferrer">
-            @{user} ↗
+            @{user} <Icon name="arrow-up-right" />
           </a>
         </div>
-        <img src={`https://ghchart.rshah.org/8B5CF6/${user}`} alt={`GitHub contribution chart for ${user}`} loading="lazy" />
+        <img
+          src={`https://ghchart.rshah.org/7C4DEB/${user}`}
+          alt={`GitHub contribution chart for ${user}`}
+          width="663"
+          height="104"
+          loading="lazy"
+        />
       </div>
 
       <div className="gh__repos">
         {repos.map((r) => (
-          <a key={r.name} href={r.url} target="_blank" rel="noreferrer" data-reveal="" className="gh__repo">
+          <a key={r.name} href={r.url} target="_blank" rel="noreferrer" className="gh__repo">
             <div className="gh__repo-head">
               <span className="gh__repo-name">{r.name}</span>
-              <span className="gh__repo-stars">★ {r.stars}</span>
+              <span className="gh__repo-stars num" aria-label={`${r.stars} stars`}>
+                <Icon name="star" /> {r.stars}
+              </span>
             </div>
-            <div className="gh__repo-desc">{r.desc}</div>
+            <p className="gh__repo-desc">{r.desc}</p>
             <div className="gh__repo-foot">
               <span>{r.lang}</span>
               <span>{r.updated}</span>

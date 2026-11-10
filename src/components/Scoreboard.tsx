@@ -1,6 +1,7 @@
 import { codeforces, platforms, problemsSolved } from '../data/content';
 import type { CfUser } from '../hooks/useLiveStats';
 import { DisplayHeading } from './DisplayHeading';
+import { Icon } from './Icon';
 import { Milestones } from './Milestones';
 import './Scoreboard.css';
 
@@ -26,9 +27,7 @@ export function Scoreboard({ cf }: { cf: CfUser | null }) {
     <section id="scoreboard" className="section section--lg">
       <div className="section-head">
         <DisplayHeading>Scoreboard</DisplayHeading>
-        <div data-reveal="" className="mono-label">
-          {problemsSolved} problems solved
-        </div>
+        <p className="mono-label score__total">{problemsSolved} problems solved</p>
       </div>
 
       <div className="rule-top">
@@ -36,7 +35,9 @@ export function Scoreboard({ cf }: { cf: CfUser | null }) {
           <a key={r.platform} href={r.href} target="_blank" rel="noreferrer" data-reveal="" data-cursor="Visit" className="score__row">
             <div className="score__info">
               <div className="score__head">
-                <span className="score__platform">{r.platform}</span>
+                <span className="score__platform">
+                  {r.platform} <Icon name="arrow-up-right" className="score__arrow" />
+                </span>
                 <span className={r.isLive ? 'score__tag score__tag--live' : 'score__tag'}>{r.isLive ? 'Live' : 'Peak'}</span>
               </div>
               <div className="score__meta">
@@ -46,7 +47,7 @@ export function Scoreboard({ cf }: { cf: CfUser | null }) {
                 <div data-bar="" className="score__bar" style={{ width: `${r.pct}%` }} />
               </div>
             </div>
-            <div className="score__rating">{r.rating}</div>
+            <div className="score__rating num">{r.rating}</div>
           </a>
         ))}
       </div>

@@ -1,9 +1,18 @@
 .gh__counts {
   display: flex;
   gap: 40px;
+  margin: 0;
+}
+
+/* <dt> first for screen readers, number on top visually. */
+.gh__counts > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 6px;
 }
 
 .gh__count-value {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 56px;
@@ -12,7 +21,6 @@
 }
 
 .gh__count-label {
-  margin-top: 6px;
   font-size: 14px;
   color: var(--mute);
 }
@@ -32,12 +40,19 @@
   color: var(--mute);
 }
 
+/* Padding with a matching negative margin gives a 44px tap area without moving the text. */
 .gh__chart-head a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: -13px 0;
+  padding: 13px 0;
   font-weight: 600;
 }
 
 .gh__chart img {
   width: 100%;
+  height: auto;
   min-width: 680px;
   transition: filter 0.4s;
 }
@@ -53,10 +68,11 @@
   }
 }
 
+/* Six repos: three columns on wide screens, two on tablets, one on phones, so rows always fill. */
 .gh__repos {
   margin-top: -1.5px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-left: 1.5px solid var(--rule);
 }
 
@@ -68,16 +84,18 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-.gh__repo,
-.js .gh__repo {
-  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out), background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .gh__repo:hover {
   background: var(--accent);
   color: #fff;
+}
+
+.gh__repo:hover .gh__repo-stars,
+.gh__repo:hover .gh__repo-desc,
+.gh__repo:hover .gh__repo-foot {
+  opacity: 1;
 }
 
 .gh__repo-head {
@@ -96,6 +114,9 @@
 }
 
 .gh__repo-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 13px;
   white-space: nowrap;
   opacity: 0.75;
@@ -103,9 +124,10 @@
 
 .gh__repo-desc {
   flex: 1;
+  margin: 0;
   font-size: 14px;
   line-height: 1.5;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .gh__repo-foot {
@@ -114,4 +136,16 @@
   font-family: var(--font-mono);
   font-size: 12px;
   opacity: 0.75;
+}
+
+@media (max-width: 1024px) {
+  .gh__repos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .gh__repos {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

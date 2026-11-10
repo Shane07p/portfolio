@@ -182,7 +182,6 @@ export const platforms = [
 ];
 
 export type Milestone = {
-  kind: string;
   title: string;
   detail: string;
   stat: string;
@@ -196,28 +195,28 @@ export const timeline: { year: string; items: Milestone[] }[] = [
   {
     year: '2026',
     items: [
-      { kind: 'Quant', title: 'AMS Derive’26, Posterior Round', detail: 'Top 50 finalist, invited to IIT Bombay.', stat: '#27', of: 'of 50 finalists', field: { rank: 27, total: 50, top: 'Finalist', label: '50 finalists' } },
-      { kind: 'Quant', title: 'AMS Derive’26, Prior Round', detail: 'Qualified for the posterior round.', stat: '#45', of: 'of 2,500+', field: { rank: 45, total: 2500, top: 'Top 1.8%', label: '2,500+ participants' }, post: { url: 'https://lnkd.in/p/dSvbvueU' } },
+      { title: 'AMS Derive’26, Posterior Round', detail: 'Top 50 finalist, invited to IIT Bombay.', stat: '#27', of: 'of 50 finalists', field: { rank: 27, total: 50, top: 'Finalist', label: '50 finalists' } },
+      { title: 'AMS Derive’26, Prior Round', detail: 'Qualified for the posterior round.', stat: '#45', of: 'of 2,500+', field: { rank: 45, total: 2500, top: 'Top 1.8%', label: '2,500+ participants' }, post: { url: 'https://lnkd.in/p/dSvbvueU' } },
     ],
   },
   {
     year: '2025',
     items: [
-      { kind: 'ICPC', title: 'ICPC Asia Amritapuri Regionals', detail: 'Regional onsite round.', stat: '#64', of: 'of 307 teams', field: { rank: 64, total: 307, top: 'Top 21%', label: '307 qualifying teams' }, post: { url: 'https://lnkd.in/p/dvMYj9Ep' } },
-      { kind: 'ICPC', title: 'ICPC Online Preliminary Round', detail: 'Qualified for regionals.', stat: '#110', of: 'of 2,500+ teams', field: { rank: 110, total: 2500, top: 'Top 4.4%', label: '2,500+ teams' } },
+      { title: 'ICPC Asia Amritapuri Regionals', detail: 'Regional onsite round.', stat: '#64', of: 'of 307 teams', field: { rank: 64, total: 307, top: 'Top 21%', label: '307 qualifying teams' }, post: { url: 'https://lnkd.in/p/dvMYj9Ep' } },
+      { title: 'ICPC Online Preliminary Round', detail: 'Qualified for regionals.', stat: '#110', of: 'of 2,500+ teams', field: { rank: 110, total: 2500, top: 'Top 4.4%', label: '2,500+ teams' } },
     ],
   },
   {
     year: '2024',
     items: [
-      { kind: 'Entrance', title: 'JEE Advanced 2024', detail: 'All India Rank.', stat: '5594', of: 'of 250,000', field: { rank: 5594, total: 250000, top: 'Top 2.2%', label: '250,000 candidates' } },
-      { kind: 'Entrance', title: 'JEE Mains 2024', detail: '99.56 percentile, All India Rank.', stat: '7166', of: 'of 1.5 million', field: { rank: 7166, total: 1500000, top: 'Top 0.5%', label: '1.5M candidates' } },
+      { title: 'JEE Advanced 2024', detail: 'All India Rank.', stat: '5594', of: 'of 250,000', field: { rank: 5594, total: 250000, top: 'Top 2.2%', label: '250,000 candidates' } },
+      { title: 'JEE Mains 2024', detail: '99.56 percentile, All India Rank.', stat: '7166', of: 'of 1.5 million', field: { rank: 7166, total: 1500000, top: 'Top 0.5%', label: '1.5M candidates' } },
     ],
   },
   {
     year: 'Campus',
     items: [
-      { kind: 'Contests', title: 'Won 3 institute CP contests', detail: 'Blitz Cup, Robin Relay and Inter-Wing.', stat: '3', of: 'contest wins' },
+      { title: 'Won 3 institute CP contests', detail: 'Blitz Cup, Robin Relay and Inter-Wing.', stat: '3', of: 'contest wins' },
     ],
   },
 ];

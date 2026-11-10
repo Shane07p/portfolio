@@ -8,21 +8,38 @@
   color: var(--fg);
 }
 
-.score__row,
-.js .score__row {
-  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out), padding 0.5s var(--ease-out);
-}
-
 .score__row:hover {
   color: var(--fg);
-  padding-left: 20px;
 }
 
+.score__total {
+  margin: 0;
+}
+
+/* Hover nudges the details with a transform, so nothing reflows. */
 .score__info {
   display: flex;
   flex-direction: column;
   gap: 10px;
   min-width: 0;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.score__row:hover .score__info {
+  transform: translateX(12px);
+}
+
+.score__arrow {
+  font-size: 0.55em;
+  vertical-align: 0.35em;
+  opacity: 0.4;
+  transition: opacity 0.25s, transform 0.35s var(--ease-out);
+}
+
+.score__row:hover .score__arrow,
+.score__row:focus-visible .score__arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
 }
 
 .score__head {
@@ -33,6 +50,7 @@
 }
 
 .score__platform {
+  white-space: nowrap;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(28px, 3.4vw, 48px);

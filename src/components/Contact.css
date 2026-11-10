@@ -6,15 +6,8 @@
   color: #fff;
 }
 
-.contact__label {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .contact__title {
-  margin: 24px 0 0;
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(64px, 14.5vw, 260px);
@@ -40,8 +33,15 @@
   color: var(--accent-deep);
 }
 
+.contact__intro {
+  max-width: 52ch;
+  margin: 36px 0 0;
+  font-size: clamp(17px, 1.6vw, 21px);
+  line-height: 1.5;
+}
+
 .contact__email-row {
-  margin-top: 56px;
+  margin-top: 28px;
   display: flex;
   flex-wrap: wrap;
   gap: 16px 24px;
@@ -65,7 +65,11 @@
 }
 
 .contact__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   flex-shrink: 0;
+  min-height: 48px;
   padding: 14px 22px;
   border-radius: 999px;
   border: 1.5px solid #fff;
@@ -116,6 +120,15 @@
 
 .contact__arrow {
   font-size: 20px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.contact__link:hover .contact__arrow {
+  transform: translate(2px, -2px);
+}
+
+.contact__link:active {
+  transform: scale(0.98);
 }
 
 .contact__handle {
@@ -150,6 +163,11 @@
 }
 
 .contact__footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: -13px 0;
+  padding: 13px 0;
   color: #fff;
 }
 

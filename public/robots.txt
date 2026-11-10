@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shane07p.me/sitemap.xml

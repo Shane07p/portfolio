@@ -12,14 +12,14 @@ export function Proof({ cf }: { cf: CfUser | null }) {
 
   return (
     <section className="proof" aria-label="Highlights">
-      <div className="proof__grid">
-        {stats.map((s, i) => (
-          <div key={s.l} data-reveal="" className="proof__cell" style={{ transitionDelay: `${i * 0.06}s` }}>
-            <div className="proof__value">{s.v}</div>
-            <div className="proof__label">{s.l}</div>
+      <dl className="proof__grid">
+        {stats.map((s) => (
+          <div key={s.l} className="proof__cell">
+            <dt className="proof__label">{s.l}</dt>
+            <dd className="proof__value num">{s.v}</dd>
           </div>
         ))}
-      </div>
+      </dl>
     </section>
   );
 }

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { timeline } from '../data/content';
 import { clamp } from '../hooks/motion';
+import { BrandIcon } from './BrandIcon';
+import { Icon } from './Icon';
 import './Milestones.css';
 
 // Marker position along the field; floored so a top rank stays visible.
@@ -49,7 +51,7 @@ export function Milestones() {
         <div ref={fillRef} className="ms__fill" />
       </div>
 
-      <div data-reveal="" className="ms__head">
+      <div className="ms__head">
         <h3 className="ms__title">Milestones</h3>
         <div className="mono-label">Marker = where I placed in the field</div>
       </div>
@@ -66,35 +68,27 @@ export function Milestones() {
           <div className="ms__items">
             {y.items.map((a) => (
               <div key={a.title} data-reveal="" className="ms__item">
+                {/* data-reveal only starts the placement bar; the row itself is always visible. */}
                 <div className="ms__info">
-                  <div className="ms__kind">{a.kind}</div>
                   <h4 className="ms__name">{a.title}</h4>
-                  <div className="ms__detail">{a.detail}</div>
+                  <p className="ms__detail">{a.detail}</p>
                   {a.post && (
-                    <div className={a.post.image ? 'ms__post' : 'ms__post ms__post--text'}>
+                    <a href={a.post.url} target="_blank" rel="noreferrer" className={a.post.image ? 'ms__post ms__post--shot' : 'ms__post'}>
                       {a.post.image && (
-                        <div className="ms__post-shot">
-                          <img className="cover-img" src={a.post.image} alt={`LinkedIn post: ${a.title}`} loading="lazy" />
-                        </div>
-                      )}
-                      <div className="ms__post-meta">
-                        <span className="ms__post-src">
-                          <span className="ms__li" aria-hidden="true">
-                            in
-                          </span>
-                          Posted on LinkedIn
+                        <span className="ms__post-shot">
+                          <img className="cover-img" src={a.post.image} alt="" loading="lazy" />
                         </span>
-                        <a href={a.post.url} target="_blank" rel="noreferrer" className="ms__post-link">
-                          Read the post ↗
-                        </a>
-                      </div>
-                    </div>
+                      )}
+                      <BrandIcon name="linkedin" size={16} />
+                      Read the post on LinkedIn
+                      <Icon name="arrow-up-right" />
+                    </a>
                   )}
                 </div>
 
                 <div className="ms__stat-col">
                   <div className="ms__stat-line">
-                    <span className="ms__stat">{a.stat}</span>
+                    <span className="ms__stat num">{a.stat}</span>
                     <span className="ms__of">{a.of}</span>
                   </div>
                   {a.field && (
