@@ -7,11 +7,19 @@ export const profile = {
   // Google Drive link to the resume. The nav's Resume button stays hidden while this is empty.
   resume: 'https://drive.google.com/file/d/1J0jA4dMs5DYmk7uuvB6jjvBlBtl8aX6Y/view?usp=sharing',
   city: 'Ahmedabad',
-  pitch: 'I build backend systems and solve competitive programming problems. Third-year student at DA-IICT.',
   portrait: '/images/portrait.webp' as string | undefined,
   github: { user: 'Shane07p', url: 'https://github.com/Shane07p' },
   linkedin: 'https://www.linkedin.com/in/shane-christian-7a928031a/',
   discord: 'soulvenom6772',
+};
+
+// The hero reads "Hi, I'm Shane. I write software." The last word rotates through the other kinds of
+// thing I write (three rounds on wide screens, then it rests on the first). Everything here is true.
+export const hero = {
+  greeting: 'Hi, I’m Shane.',
+  lead: 'I write',
+  words: ['software', 'APIs', 'developer tools', 'contest problems'],
+  line: 'Software developer and competitive programmer. Third-year B.Tech ICT student at DA-IICT.',
 };
 
 export const problemsSolved = '2,000+';
@@ -29,7 +37,7 @@ export const marquee = [
 
 export const exploring = {
   lead: 'Currently exploring',
-  accent: 'reliable systems, backend development and agentic AI.',
+  accent: 'reliable systems, software development and agentic AI.',
 };
 
 export type Project = {
@@ -116,6 +124,27 @@ export const projects: Project[] = [
     links: [{ label: 'Source', href: 'https://github.com/shane07p/GeoNav' }],
   },
   {
+    name: 'Axon',
+    kind: 'Systems tool',
+    year: '2026',
+    status: 'In progress',
+    summary:
+      'A command-line tool that downloads folders of files over several TCP connections at once, and picks up from the exact byte when anything drops.',
+    purpose:
+      'It’s for moving lots of files reliably. A dropped connection, a server restart or a crashed client shouldn’t mean starting the whole download again.',
+    features: [
+      'Serve folders of files with axon serve, see what’s there with axon list, and download with axon fetch.',
+      'Share one download across several connections that pull files from a common queue. On loopback, eight connections took 400 small files from 157 MB/s to 541 MB/s.',
+      'When a connection drops, its files go back to the queue, it reconnects with backoff, and every file continues from the byte it reached.',
+      'Survives server and client restarts: progress is saved about once a second, and running the same command again picks up where it stopped.',
+      'Each file is checked against the CRC-32 the server announced before it appears under its real name, so a file you can see is always complete.',
+    ],
+    build:
+      'Written in C++20 with CMake on Linux. GoogleTest covers the units, and an end-to-end test starts a real server, kills a client with SIGKILL, restarts the server mid-transfer and checks the files still come out identical. It also builds with AddressSanitizer and UndefinedBehaviorSanitizer. Next is spotting files that change during a transfer.',
+    stack: ['C++20', 'TCP sockets', 'CMake', 'GoogleTest', 'Linux'],
+    links: [{ label: 'Source', href: 'https://github.com/Shane07p/Axon' }],
+  },
+  {
     name: 'Vulnpath',
     kind: 'Security tool',
     year: '2026',
@@ -143,14 +172,15 @@ export const projects: Project[] = [
     purpose:
       'When a service goes down, a team needs one place to see what’s affected, who’s on it and what has been tried. Settle puts that kind of incident response, in the style of incident.io, together with uptime monitoring in the style of Better Stack.',
     features: [
-      'Sign in with roles for admins, engineers and viewers.',
-      'Keep a catalogue of the services a team runs. (Being built.)',
-      'Open and track incidents from the first alert to the fix. (Being built.)',
-      'Get suggestions from an AI service during an incident. (Early stage.)',
+      'Teams sign up, create an organisation and invite members by email, with roles for admins, engineers and viewers.',
+      'A catalogue of the services a team runs, with SLA targets, and incidents that can be assigned, commented on and searched.',
+      'On-call schedules and escalation policies, with a worker that escalates an incident when nobody picks it up.',
+      'Alerts come in through a webhook and are de-duplicated and grouped into an inbox; uptime monitors raise one alert per outage and record the recovery.',
+      'In-app notifications for assignments and escalations, and a service map that shows what an incident could affect.',
     ],
     build:
-      'A Spring Boot 4 API with Flyway migrations, tested against a real PostgreSQL database using Testcontainers, and a React and TypeScript frontend. Every push is built and tested in GitHub Actions, with CodeQL scanning. The AI service is a separate FastAPI app. It’s deployed on Vercel and Render, with the database on Supabase.',
-    stack: ['Java', 'Spring Boot', 'PostgreSQL', 'Flyway', 'Testcontainers', 'React', 'TypeScript', 'FastAPI', 'GitHub Actions'],
+      'A Spring Boot 4 API with Flyway migrations, tested against a real PostgreSQL database using Testcontainers, and a React and TypeScript frontend. Events go out to RabbitMQ through an outbox, and a separate FastAPI service handles the AI side, with embeddings from Ollama. Every push is built and tested in GitHub Actions with CodeQL scanning. It’s deployed on Vercel and Render, with the database on Supabase. The first sprint is done; acknowledgements, heartbeats and severity changes are next.',
+    stack: ['Java', 'Spring Boot', 'PostgreSQL', 'RabbitMQ', 'React', 'TypeScript', 'FastAPI', 'Ollama'],
     links: [
       { label: 'API docs', href: 'https://incident-backend-f340.onrender.com/swagger-ui.html' },
       { label: 'Source', href: 'https://github.com/Shane07p/DevOps-Incident-Management-System' },
@@ -195,6 +225,7 @@ export const timeline: { year: string; items: Milestone[] }[] = [
   {
     year: '2026',
     items: [
+      { title: 'ICPC India Preliminary Contest 2026', detail: 'Qualified for the regionals again, 1st among DA-IICT teams, with 6 problems solved and no penalties.', stat: '#83', of: 'of 3,883 teams', field: { rank: 83, total: 3883, top: 'Top 2.1%', label: '3,883 teams' }, post: { url: 'https://www.linkedin.com/posts/krish-vamja_icpc-icpc2026-icpcindia-activity-7522824885031837696-9v5D' } },
       { title: 'AMS Derive’26, Posterior Round', detail: 'Top 50 finalist, invited to IIT Bombay.', stat: '#27', of: 'of 50 finalists', field: { rank: 27, total: 50, top: 'Finalist', label: '50 finalists' } },
       { title: 'AMS Derive’26, Prior Round', detail: 'Qualified for the posterior round.', stat: '#45', of: 'of 2,500+', field: { rank: 45, total: 2500, top: 'Top 1.8%', label: '2,500+ participants' }, post: { url: 'https://lnkd.in/p/dSvbvueU' } },
     ],
@@ -216,6 +247,7 @@ export const timeline: { year: string; items: Milestone[] }[] = [
   {
     year: 'Campus',
     items: [
+      { title: 'Won Build Night', detail: 'A hackathon run by the AI Club.', stat: '1st', of: 'place' },
       { title: 'Won 3 institute CP contests', detail: 'Blitz Cup, Robin Relay and Inter-Wing.', stat: '3', of: 'contest wins' },
     ],
   },
@@ -264,12 +296,12 @@ export const skills = [
 // Repos in the GitHub grid, in order. Stars, language and "updated" come live from the API;
 // titles and descriptions come from here so the wording matches the rest of the site.
 export const featuredRepos = [
+  { repo: 'Axon', title: 'Axon', desc: 'Parallel, resumable file transfer over TCP in C++20. Picks up from the exact byte after a drop.', lang: 'C++', stars: 0 },
   { repo: 'WallStreet-C-Real-Time-Multithreaded-Stock-Exchange-Simulator', title: 'WallStreet-C', desc: 'A stock exchange simulator in C. Traders connect over TCP and buy and sell in real time, or let a bot trade for them.', lang: 'C', stars: 1 },
   { repo: 'StudSpace', title: 'StudSpace', desc: 'A study workspace for university students, with courses, attendance, notes and an AI assistant.', lang: 'Java', stars: 2 },
   { repo: 'Vulnpath', title: 'Vulnpath', desc: 'Finds which vulnerable dependencies a Python project actually uses, and how to fix them.', lang: 'Python', stars: 1 },
   { repo: 'DevOps-Incident-Management-System', title: 'Settle', desc: 'An incident management and monitoring platform for software teams.', lang: 'TypeScript', stars: 2 },
   { repo: 'UrbanServe-Home-Services-Database-System', title: 'UrbanServe', desc: 'The database and REST API behind a home-services marketplace.', lang: 'Java', stars: 1 },
-  { repo: 'GeoNav', title: 'GeoNav', desc: 'A terminal route planner using Dijkstra, A* and a QuadTree.', lang: 'Java', stars: 2 },
 ];
 
 // Shown until (or if) the live GitHub API responds.
@@ -288,10 +320,10 @@ export const gallery: { cap: string; width: string; tilt: string; image?: string
 ];
 
 export const about = {
-  headline: 'Hi, I’m Shane.',
-  headlineAccent: 'Software developer and competitive programmer.',
+  headline: 'How I got here.',
+  headlineAccent: 'From contest problems to building software.',
   body: [
-    'I’m a third-year B.Tech ICT student at Dhirubhai Ambani University (formerly DA-IICT) in Gandhinagar. Most of what I build is backend work: APIs, databases, and getting them deployed and running properly.',
+    'I’m a third-year B.Tech ICT student at Dhirubhai Ambani University (formerly DA-IICT) in Gandhinagar. I build software end to end: databases, APIs, interfaces, and getting it all deployed and running properly.',
     'I got into programming through competitive programming. A few seniors introduced me to it, and I started practising on Codeforces and taking part in contests. Most of what I know came from Codeforces blogs, YouTube channels like Errichto, Colin Galen, Vivek Gupta, Gaurav Sen and TLE Eliminators, and problem sets like CSES and the USACO Guide.',
     'Something I learned early is how much it helps to be around people who like the same things. That’s why I joined the Programming Club, where I now set problems and help juniors, and why I helped start the Quant Club this year.',
   ],

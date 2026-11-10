@@ -4,3 +4,6 @@ dist
 
 # Claude Design export (source of the design, not part of the site)
 *.zip
+
+# Taste skill local state (deal history, gate log)
+.taste-skill/

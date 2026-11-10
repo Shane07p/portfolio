@@ -10,6 +10,68 @@
   color: #fff;
 }
 
+/* The full stop after "Shane": a dot you can grab. A larger invisible hit area makes it easy to catch. */
+.hero__dot {
+  position: relative;
+  display: inline-block;
+  width: 0.19em;
+  height: 0.19em;
+  margin-left: 0.04em;
+  border-radius: 50%;
+  background: #d9ccff;
+  cursor: grab;
+  touch-action: none;
+}
+
+.hero__dot::before {
+  content: '';
+  position: absolute;
+  inset: -16px;
+}
+
+/* Until someone plays with it, the dot gives a small hop now and then. */
+.hero__dot:not(.is-touched) {
+  animation: dot-nudge 5s ease-in-out 2.4s infinite;
+}
+
+@keyframes dot-nudge {
+  0%, 82%, 100% { transform: none; }
+  87% { transform: translateY(-0.32em) scale(0.92, 1.08); }
+  92% { transform: translateY(0) scale(1.18, 0.82); }
+  96% { transform: translateY(-0.08em); }
+}
+
+/* The free ball that replaces the full stop while it's in play. */
+.hero__ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  display: none;
+  border-radius: 50%;
+  background: #d9ccff;
+  box-shadow: 0 12px 28px rgba(20, 8, 60, 0.35);
+  cursor: grabbing;
+  touch-action: none;
+  will-change: transform;
+}
+
+.hero__ball.is-active {
+  display: block;
+}
+
+.hero__ball::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+}
+
+/* After the entrance, lines stop clipping so knocked words can move. */
+.hero__title.is-live .hero__line {
+  overflow: visible;
+}
+
 .hero__mesh {
   position: absolute;
   inset: 0;
@@ -32,36 +94,70 @@
 
 .hero__top {
   position: relative;
-  padding: 120px var(--gutter) 0;
+  padding: 120px var(--gutter) clamp(20px, 3.5vh, 40px);
   will-change: transform, opacity;
 }
 
-.hero__name {
-  margin: clamp(20px, 4vh, 48px) 0 0;
+.hero__title {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(64px, 19vw, 340px);
-  line-height: 0.8;
-  letter-spacing: -0.06em;
+  font-size: clamp(52px, 10.5vw, 176px);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
 }
 
+/* Each line clips its words, so they rise into place from below on load. */
 .hero__line {
   display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.24em;
   overflow: hidden;
-  padding-bottom: 0.02em;
-}
-
-.hero__line--end {
-  justify-content: flex-end;
-  padding-bottom: 0.08em;
+  padding-bottom: 0.06em;
 }
 
 .hero__line > span {
   display: inline-block;
 }
 
-.hero__dot {
+.hero__line--accent {
   color: #d9ccff;
+}
+
+/* Rotating word: every word sits in the same grid cell, so the line keeps the widest word's width. */
+.rotor {
+  display: inline-grid;
+  justify-items: start;
+  vertical-align: top;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.rotor__w {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(112%);
+  transition: transform 640ms var(--ease-out), opacity 320ms ease;
+}
+
+.rotor__w.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.rotor__w.is-out {
+  opacity: 0;
+  transform: translateY(-112%);
+  transition-duration: 520ms, 260ms;
+}
+
+/* Phones keep the first word only, so a long word never has to wrap inside the cell. */
+@media (max-width: 639px) {
+  .rotor__w:not(:first-child) {
+    display: none;
+  }
 }
 
 .hero__bottom {
@@ -77,12 +173,12 @@
 
 .hero__pitch {
   margin: 0;
-  max-width: 640px;
+  max-width: 34ch;
   font-family: var(--font-display);
-  font-size: clamp(24px, 2.8vw, 38px);
+  font-size: clamp(20px, 2.1vw, 30px);
   font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   text-wrap: pretty;
 }
 
